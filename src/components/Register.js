@@ -14,7 +14,7 @@ export default function Register() {
 
     const navigate = useNavigate()
 
-    function handleForm(e) {
+    function sendForm(e) {
       
       e.preventDefault()
 
@@ -48,7 +48,7 @@ export default function Register() {
       <>
         <Logo />
 
-        <form onSubmit={handleForm}>
+        <form onSubmit={sendForm}>
           <ContentLogin>
             <input type="email" name="email" id="" placeholder="email" onChange={(e) => setEmail(e.target.value)}
             value={email}
