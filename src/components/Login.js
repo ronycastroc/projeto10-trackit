@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Logo from "./Logo"
 import { ThreeDots } from 'react-loader-spinner'
-import { useState } from "react"
-import { postLogin } from "../service/trackitService"
+import { useContext, useState } from "react"
+import { createHeaders, postLogin } from "../service/trackitService"
+import UserContext from "../context/UserContext"
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
@@ -11,6 +12,8 @@ export default function Login() {
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
+    const { setUser } = useContext(UserContext)
+
     
     function sendForm(e) {
       e.preventDefault()
@@ -21,11 +24,14 @@ export default function Login() {
       }
 
       postLogin(body)
-      .then(res => {
-        console.log(res.data)
+      .then(res => {        
         resetForm()
-        setLoading(!loading)
-        navigate('/')
+        setLoading(!loading)        
+        createHeaders(res.data.token)
+        setUser(res.data)
+        localStorage.setItem("perfil", JSON.stringify(res.data.image))
+        localStorage.setItem("token", JSON.stringify(res.data.token))
+        navigate('/today')
       })
       .catch(() => {
         alert('Seu usuário ou senha estão incorretos.')
@@ -41,18 +47,19 @@ export default function Login() {
     }
 
     return (
-      <>     
+      <Background>     
          <Logo />
 
          <form onSubmit={sendForm}>
             <ContentLogin>         
-               <input type="email" name="email" id="" placeholder="email" disabled={loading}
+               <input type="email" name="email" 
+               placeholder="email" disabled={loading}
                onChange={(e) => setEmail(e.target.value)}
                value={email}
                required
                />
 
-               <input type="password" name="password" id="" placeholder="senha" disabled={loading}
+               <input type="password" name="password" placeholder="senha" disabled={loading}
                onChange={(e) => setPassword(e.target.value)}
                value={password}
                required
@@ -71,7 +78,7 @@ export default function Login() {
                </Link>               
             </ContentLogin>        
          </form>     
-      </>
+      </Background>
     )
 }
 
@@ -121,6 +128,16 @@ const ContentLogin = styled.div`
       text-align: center;
       margin-bottom: 50px;
    }
+
+   a {
+      color: #52B6FF;
+   }
 `
 
-export { ContentLogin }
+const Background = styled.div`
+   background-color: #FFFFFF;
+   height: 100vh;
+`
+
+
+export { ContentLogin, Background }

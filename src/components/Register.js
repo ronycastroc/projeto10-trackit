@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ThreeDots } from "react-loader-spinner"
 import { Link, useNavigate } from "react-router-dom"
 import { postRegister } from "../service/trackitService"
-import { ContentLogin } from "./Login"
+import { ContentLogin, Background } from "./Login"
 import Logo from "./Logo"
 
 export default function Register() {
@@ -45,30 +45,38 @@ export default function Register() {
     }
 
     return (
-      <>
+      <Background>
         <Logo />
 
         <form onSubmit={sendForm}>
           <ContentLogin>
-            <input type="email" name="email" id="" placeholder="email" onChange={(e) => setEmail(e.target.value)}
+            <input type="email" name="email" 
+            placeholder="email" 
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             required
             disabled={loading}
             />
                
-            <input type="password" name="password" id="" placeholder="senha" onChange={(e) => setPassword(e.target.value)}
+            <input type="password" name="password"
+            placeholder="senha" 
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
             required
             disabled={loading}
             />
 
-            <input type="text" name="name" id="" placeholder="nome" onChange={(e) => setName(e.target.value)}
+            <input type="text" name="name" 
+            placeholder="nome" 
+            onChange={(e) => setName(e.target.value)}
             value={name}
             required
             disabled={loading}
             />  
 
-            <input type="url" name="url" id="" placeholder="foto" onChange={(e) => setImage(e.target.value)}
+            <input type="url" name="url" 
+            placeholder="url foto" 
+            onChange={(e) => setImage(e.target.value)}
             value={image}
             required
             disabled={loading}
@@ -78,7 +86,7 @@ export default function Register() {
               <div onClick={() => setLoading(!loading)}>
                 {loading ?               
                 (<ThreeDots color="#ffffff" height={50} width={50} />) : 
-                ('Entrar')}                     
+                ('Cadastrar')}                     
               </div>
             </button>
 
@@ -87,6 +95,6 @@ export default function Register() {
             </Link>               
           </ContentLogin>
         </form>
-      </>
+      </Background>
     )
 }

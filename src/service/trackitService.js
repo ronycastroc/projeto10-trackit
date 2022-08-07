@@ -3,12 +3,14 @@ import axios from 'axios';
 const BASE_URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit';
 
 function createHeaders() {
-    const auth = localStorage.getItem('trackit');
+    const auth = JSON.parse(localStorage.getItem('token'));
     const config = {
         headers: {
-            Authorization: `Bearer ${auth.token}`
+            Authorization: `Bearer ${auth}`
         }
     }
+
+    return config
 }
 
 function postRegister(body) {
@@ -27,7 +29,7 @@ function postHabits(body) {
     return promise
 }
 
-function getHabits(body) {
+function getHabits() {
     const config = createHeaders()
     const promise = axios.get(`${BASE_URL}/habits`, config)
     return promise
@@ -63,4 +65,4 @@ function getHabitsDaily() {
     return promise
 }
 
-export { postRegister, postLogin, postHabits, getHabits, deleteHabits, getHabitsToday, habitCheck, habitUncheck, getHabitsDaily };
+export { createHeaders, postRegister, postLogin, postHabits, getHabits, deleteHabits, getHabitsToday, habitCheck, habitUncheck, getHabitsDaily };
