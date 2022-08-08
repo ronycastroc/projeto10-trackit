@@ -22,8 +22,6 @@ export default function HabitUser({ habitId, name, days, setHabits}) {
         <UserHabit>
             <h2>{name}</h2>
             <img src={trash} alt="trash" onClick={deleteHabit}/>
-
-
             
             <Days>
                 {weekdays.map((value, index) => (                    
@@ -70,14 +68,14 @@ const Days = styled.div`
 
 const Day = styled.div`
     display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 30px;
-      height: 30px;
-      background: ${props => props.state ? ('#FFFFFF') : ('#D4D4D4')};
-      border: 1px solid #D5D5D5;
-      border-radius: 5px;
-      color: ${props => props.state ? ('#D4D4D4') : ('#FFFFFF')};;
-      margin-right: 5px;  
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: ${props => props.state ? ('#FFFFFF') : ('#D4D4D4')};
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    color: ${props => props.state ? ('#D4D4D4') : ('#FFFFFF')};;
+    margin-right: 5px;  
         
 `

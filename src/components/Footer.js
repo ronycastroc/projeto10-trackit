@@ -1,14 +1,19 @@
 import styled from "styled-components";
 import {  buildStyles, CircularProgressbar  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 
 
 export default function Footer() {
-    const navigate = useNavigate()
+    const { habitsToday } = useContext(UserContext)
 
-    function today() {
-        navigate('/today')
+    function percentage() {
+        const done = habitsToday.filter(value => value.done).length;
+        const total = habitsToday.length;
+
+        return ((done/total) * 100).toFixed(0)       
     }
 
     return (        
@@ -18,7 +23,7 @@ export default function Footer() {
             <div>
                 <Link to='/today'>
                     <CircularProgressbar     
-                        value={60}
+                        value={habitsToday.length === 0 ? ('0') : (percentage())}
                         text='Hoje'
                         background
                         backgroundPadding={6}

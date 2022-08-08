@@ -13,7 +13,6 @@ export default function HabitsList({habits, setHabits}) {
         // eslint-disable-next-line
     }, [])
 
-
     return (        
         <HabitsContent>
             {habits.length === 0 ? (

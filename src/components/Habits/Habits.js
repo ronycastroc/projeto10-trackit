@@ -4,15 +4,14 @@ import Footer from "../Footer";
 import Header from "../Header";
 import HabitsList from "./HabitsList";
 import { postHabits, getHabits } from "../../service/trackitService";
-
-
-
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Habits() {
    const [create, setCreate] = useState(true);
    const [name, setName] = useState('');
    const [days, setDays] = useState([]);   
    const [habits, setHabits] = useState([])
+   const [loading, setLoading] = useState(false)
 
 const weekdays = [
    {
@@ -63,23 +62,28 @@ const [selected, setSelected] = useState(weekdays);
    function sendForm(e) {
       e.preventDefault();
 
+      setLoading(!loading)
+
       const body = {
          name,
          days
       }
       
-      if(name === '' && days.length === 0) {
+      if(name === '' || days.length === 0) {
          alert('Dê um nome ao novo hábito e selecione algum dia da semana antes de prosseguir.');
+         setLoading(false)
 
       } else {
          postHabits(body)
          .then(() => {
-            resetForm()
+            setLoading(false)
+            resetForm()            
             getHabits()
             .then((res) => setHabits(res.data))
             .catch(() => alert('Algo deu errado, tente novamente.'));            
          })
          .catch(() => alert('Algo deu errado tente novamente.'));
+         
          
       }
       
@@ -108,6 +112,7 @@ const [selected, setSelected] = useState(weekdays);
             (
             <CreateHabit>
                <input type="text" name="" placeholder="nome do hábito"
+               disabled={loading}
                value={name} 
                onChange={(e) => setName(e.target.value)}
                />
@@ -129,7 +134,9 @@ const [selected, setSelected] = useState(weekdays);
             </Cancel>
 
             <Save onClick={sendForm}>
-               Salvar
+               {loading ?                      
+                  (<ThreeDots color="#ffffff" height={50} width={50} />) :
+                  ('Salvar')}     
             </Save>
 
             </CreateHabit>)}    
@@ -146,8 +153,8 @@ const [selected, setSelected] = useState(weekdays);
     function select(value) {
       if (days.includes(value.id)) {
          value.isAvailable = true;
-         let removed = days.indexOf(value.id);
-         days.splice(removed, 1);
+         let remove = days.indexOf(value.id);
+         days.splice(remove, 1);
          setDays([...days]);
 
       } else {

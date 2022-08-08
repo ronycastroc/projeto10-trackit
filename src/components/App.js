@@ -10,8 +10,7 @@ import History from "./History"
 
 export default function App() {
   const [user, setUser] = useState({})
-  const [habitsToday, setHabitsToday] = useState([])
-  
+  const [habitsToday, setHabitsToday] = useState([])  
 
     return (            
             <BrowserRouter>

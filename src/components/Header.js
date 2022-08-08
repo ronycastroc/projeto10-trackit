@@ -1,14 +1,11 @@
 import styled from "styled-components"
 import logo from '../assets/img/TrackIt.svg'
-import { useContext } from "react"
-import UserContext from "../context/UserContext"
 
 export default function Header() {
-    const { user } = useContext(UserContext);
 
     return (
         <Top>
-            <Logo src={logo} alt="" />
+            <Logo src={logo} alt="logo" />
             <ImgPerfil src={JSON.parse(localStorage.getItem("perfil"))} alt="" />
         </Top>
     )

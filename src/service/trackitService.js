@@ -47,22 +47,17 @@ function getHabitsToday() {
     return promise
 }
 
-function habitCheck(habitId) {
+function habitCheck(id) {
     const config = createHeaders()
-    const promise = axios.post(`${BASE_URL}/habits${habitId}/check`, config)
+    const promise = axios.post(`${BASE_URL}/habits/${id}/check`, {}, config)
     return promise
 }
 
-function habitUncheck(habitId) {
+function habitUncheck(id) {
     const config = createHeaders()
-    const promise = axios.post(`${BASE_URL}/habits${habitId}/uncheck`, config)
+    const promise = axios.post(`${BASE_URL}/habits/${id}/uncheck`, {}, config)
     return promise
 }
 
-function getHabitsDaily() {
-    const config = createHeaders()
-    const promise = axios.get(`${BASE_URL}/habits/history/daily`, config)
-    return promise
-}
 
-export { createHeaders, postRegister, postLogin, postHabits, getHabits, deleteHabits, getHabitsToday, habitCheck, habitUncheck, getHabitsDaily };
+export { createHeaders, postRegister, postLogin, postHabits, getHabits, deleteHabits, getHabitsToday, habitCheck, habitUncheck };
