@@ -14,11 +14,12 @@ export default function Footer() {
     return (        
         <Bot>
             <Link to='/habit'><p>Hábitos</p></Link>
-                
-                <Example label="Background" onClick={today}>
+
+            <div>
+                <Link to='/today'>
                     <CircularProgressbar     
                         value={60}
-                        text={`Hoje`}
+                        text='Hoje'
                         background
                         backgroundPadding={6}
                         styles={buildStyles({
@@ -29,8 +30,8 @@ export default function Footer() {
                         
                         })}                 
                 />
-                </Example>
-
+                </Link>
+            </div>
                 <Link to='/history'><p>Histórico</p></Link>
             
         </Bot>
@@ -56,12 +57,12 @@ const Bot = styled.div`
     a {
         text-decoration: none;
     }
-    
-`
 
-const Example = styled.div`
-    width: 90px;
-    height: 90px;
-    position: absolute;
-    bottom: 10px;    
+    div {
+        width: 90px;
+        height: 90px;
+        position: absolute;
+        bottom: 10px;    
+    }
+    
 `

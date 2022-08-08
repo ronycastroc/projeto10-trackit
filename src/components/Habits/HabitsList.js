@@ -8,7 +8,7 @@ export default function HabitsList({habits, setHabits}) {
     useEffect(() => {
         getHabits()
         .then((res) => setHabits(res.data))
-        .catch(() => console.error)
+        .catch(() => alert('Algo deu errado!'))
         
         // eslint-disable-next-line
     }, [])
